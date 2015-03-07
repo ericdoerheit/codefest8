@@ -107,7 +107,7 @@ public class RealtimeActivity extends Activity implements View.OnClickListener {
 
                 ((MainApplication) this.getApplication()).getTracks().add(currentTrack);
                 if(currentTrack != null && currentTrack instanceof Track){
-                    utils.serialize(currentTrack);
+                    utils.save(currentTrack);
                 }
 
                 timer.cancel();

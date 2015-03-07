@@ -12,10 +12,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -60,6 +62,40 @@ public class Utils {
                 ObjectInputStream is = new ObjectInputStream(fis);
                 Track track = (Track) is.readObject();
                 is.close();
+                fis.close();
+                return track;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void save(Track track){
+        try {
+            FileOutputStream fos = context.openFileOutput("track" + readNumberOfFiles() + ".json", Context.MODE_PRIVATE);
+            fos.write(getJSONfromTrack(track).toString().getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Track read(int number){
+        try {
+            if(number <= readNumberOfFiles()) {
+                FileInputStream fis = context.openFileInput("track" + number + ".json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+                String line;
+                String data = "";
+                while ((line = reader.readLine()) != null) {
+                   data += line;
+                }
+
+                JSONObject jsonTrack = new JSONObject(data);
+                Track track = getTrackfromJSON(jsonTrack);
                 fis.close();
                 return track;
             } else {

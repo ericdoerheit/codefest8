@@ -24,9 +24,9 @@ public class MainApplication extends Application{
 
         // load all tracks from filesystem
         for(int i = 0; i < utils.readNumberOfFiles(); i++){
-            if(utils.unserialize(i) != null){
-                tracks.add(utils.unserialize(i));
-            }
+            Track track = utils.read(i);
+            if(track != null)
+                tracks.add(utils.read(i));
         }
     }
 
