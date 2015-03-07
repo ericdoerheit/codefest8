@@ -20,7 +20,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, StartActivity.class);
-        startActivity(intent);
+        switch (v.getId()) {
+            case R.id.connectToCarButton: {
+                Intent intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 }

@@ -11,18 +11,24 @@ import android.widget.Button;
  */
 public class StartActivity extends Activity implements View.OnClickListener{
 
+    Button startTrackingButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        final Button startTrackingButton = (Button) findViewById(R.id.startTrackingButton);
+        Button startTrackingButton = (Button) findViewById(R.id.startTrackingButton);
         startTrackingButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent  = new Intent(this, RealtimeActivity.class);
-        startActivity(intent);
+        switch (v.getId()) {
+            case R.id.startTrackingButton: {
+                Intent intent = new Intent(this, RealtimeActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 }
