@@ -6,21 +6,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
-public class MainActivity extends Activity implements View.OnClickListener {
+/**
+ * Created by ericdorheit on 07.03.15.
+ */
+public class StartActivity extends Activity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_start);
 
-        final Button connectToCarButton = (Button) findViewById(R.id.connectToCarButton);
-        connectToCarButton.setOnClickListener(this);
+        final Button startTrackingButton = (Button) findViewById(R.id.startTrackingButton);
+        startTrackingButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, StartActivity.class);
+        Intent intent  = new Intent(this, RealtimeActivity.class);
         startActivity(intent);
     }
 }

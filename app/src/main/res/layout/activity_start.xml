@@ -3,13 +3,22 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connect to your car"
-        android:id="@+id/connectToCarButton"
+        android:text="Start Tracking"
+        android:id="@+id/startTrackingButton"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start tracking automatically"
+        android:id="@+id/startTrackingAutomaticallyCheckBox"
+        android:checked="false"
+        android:layout_below="@+id/startTrackingButton"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
