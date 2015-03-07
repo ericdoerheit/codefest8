@@ -22,6 +22,8 @@ import java.util.TimerTask;
  */
 public class RealtimeActivity extends Activity implements View.OnClickListener {
 
+    Utils utils;
+
     final long TIMER_DELAY = 1000; // Timer delay in ms
     final long CHART_MAX = 10; // Timer delay in ms
 
@@ -36,8 +38,12 @@ public class RealtimeActivity extends Activity implements View.OnClickListener {
 
     Timer timer;
 
+    Track currentTrack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        utils = ((MainApplication) this.getApplication()).getUtils();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realtime);
 
@@ -53,20 +59,16 @@ public class RealtimeActivity extends Activity implements View.OnClickListener {
         stopTrackingButton = (Button) findViewById(R.id.stopTrackingButton);
         stopTrackingButton.setOnClickListener(this);
 
-        /*
-        Utils.getThresholds();
-         */
-
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 // TODO Generator fetching data from the virtual car
-                final Track track = new Track((int)(120*Math.random())) {
+                currentTrack = new Track() {
                 };
-                /*
-                Utils.getCurrentRecord().add(Track);
-                 */
-                updateTrack(track);
+
+                currentTrack.setCurrentSpeed((int)(120*Math.random()));
+
+                updateTrack(currentTrack);
             }
         };
 
@@ -84,8 +86,8 @@ public class RealtimeActivity extends Activity implements View.OnClickListener {
 
                 LineData lineData = chart.getLineData();
 
-                lineData.addXValue(String.valueOf(track.getTimestamp()));
-                lineData.addEntry(new Entry(track.getSpeed(), lineData.getXValCount()-1),0);
+                lineData.addXValue("");
+                lineData.addEntry(new Entry(track.getCurrentSpeed(), lineData.getXValCount()-1),0);
 
                 if(lineData.getXValCount() > CHART_MAX){
                     //lineData.removeEntry(0,0);
@@ -102,6 +104,12 @@ public class RealtimeActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.stopTrackingButton: {
+
+                ((MainApplication) this.getApplication()).getTracks().add(currentTrack);
+                if(currentTrack != null && currentTrack instanceof Track){
+                    utils.serialize(currentTrack);
+                }
+
                 timer.cancel();
                 Intent intent = new Intent(this, TracksActivity.class);
                 startActivity(intent);

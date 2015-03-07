@@ -9,6 +9,9 @@
         android:theme="@style/AppTheme"
         android:name=".MainApplication">
 
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >

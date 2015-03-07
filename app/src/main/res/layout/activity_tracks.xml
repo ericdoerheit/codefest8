@@ -3,7 +3,8 @@
     android:layout_height="match_parent" android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    android:paddingBottom="0dp" tools:context=".TracksActivity">
+    android:paddingBottom="0dp" tools:context=".TracksActivity"
+    android:background="#ff727272">
 
     <ListView
         android:layout_width="wrap_content"
